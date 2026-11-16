@@ -292,42 +292,42 @@ screen navigation():
         xpos gui.navigation_xpos
         yalign 0.5
 
-        spacing gui.navigation_spacing
+        spacing 8
 
         if main_menu:
 
-            textbutton _("시작하기") action Start()
+            use receipt_button("start", "처음부터", Start())
 
         else:
 
-            textbutton _("대사록") action ShowMenu("history")
+            use receipt_button("history", "대사록", ShowMenu("history"))
 
-            textbutton _("저장하기") action ShowMenu("save")
+            use receipt_button("save", "저장하기", ShowMenu("save"))
 
-        textbutton _("불러오기") action ShowMenu("load")
+        use receipt_button("load", "불러오기", ShowMenu("load"))
 
-        textbutton _("환경설정") action ShowMenu("preferences")
+        use receipt_button("config", "환경설정", ShowMenu("preferences"))
 
         if _in_replay:
 
-            textbutton _("리플레이 끝내기") action EndReplay(confirm=True)
+            use receipt_button("replay", "리플레이 끝내기", EndReplay(confirm=True))
 
         elif not main_menu:
 
-            textbutton _("메인 메뉴") action MainMenu()
+            use receipt_button("title", "메인 메뉴", MainMenu())
 
-        textbutton _("버전정보") action ShowMenu("about")
+        use receipt_button("about", "제작정보", ShowMenu("about"))
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             ## 도움말 메뉴는 모바일 디바이스와 맞지 않아 불필요합니다.
-            textbutton _("조작방법") action ShowMenu("help")
+            use receipt_button("help", "조작방법", ShowMenu("help"))
 
         if renpy.variant("pc"):
 
             ## iOS에서는 종료 버튼이 금지되어 있으며 Android 및 웹에서는 불필요
             ## 합니다.
-            textbutton _("종료하기") action Quit(confirm=not main_menu)
+            use receipt_button("quit", "끝내기", Quit(confirm=not main_menu))
 
 
 style navigation_button is gui_button
@@ -348,30 +348,81 @@ style navigation_button_text:
 ## https://www.renpy.org/doc/html/screen_special.html#main-menu
 
 screen main_menu():
-
-    ## 이렇게 하면 다른 메뉴 화면이 모두 교체됩니다.
     tag menu
+    if os.environ.get("RECEIPT_UI_PREVIEW") == "1":
+        use receipt_visual_check
 
-    add gui.main_menu_background
+    add gui.main_menu_background xysize (800, 600)
 
-    ## 이 빈 프레임은 기본 메뉴를 어둡게 만듭니다.
     frame:
-        style "main_menu_frame"
+        xpos 312
+        ypos 235
+        xsize 420
+        ysize 100
+        background None
+        padding (0, 0)
 
-    ## use 명령어로 스크린 내에 다른 스크린을 불러옵니다. 메인 메뉴 스크린의 내
-    ## 용물은 navigation 스크린에 있습니다.
-    use navigation
+        text "[config.name!t]":
+            style "retro_title_name"
+            xalign 0.5
+            ypos 4
 
-    if gui.show_name:
+    vbox:
+        xpos 30
+        ypos 104
+        spacing 11
+        at receipt_arrive
 
-        vbox:
-            style "main_menu_vbox"
+        for asset, caption, target in [
+            ("start", "처음부터", Start()),
+            ("load", "불러오기", ShowMenu("load")),
+            ("quick", "빠른 불러오기", QuickLoad()),
+            ("config", "환경설정", ShowMenu("preferences")),
+            ("about", "제작정보", ShowMenu("about")),
+            ("quit", "끝내기", Quit(confirm=True))]:
 
-            text "[config.name!t]":
-                style "main_menu_title"
+            use receipt_button("main_" + asset, caption, target)
 
-            text "[config.version]":
-                style "main_menu_version"
+    text "김민환소프트":
+        xcenter 522
+        ypos 478
+        size 11
+        color "#8c8676"
+        outlines [(1, "#ffffff", 0, 0)]
+
+
+style retro_title_button is default:
+    xsize 220
+    ysize 34
+    padding (0, 0)
+    background Transform("gui/title/button_idle.png", xysize=(220, 34))
+    hover_background Transform("gui/title/button_hover.png", xysize=(220, 34))
+    insensitive_background Transform("gui/title/button_idle.png", xysize=(220, 34), alpha=0.5)
+
+style retro_title_button_text is default:
+    font "SourceHanSansLite.ttf"
+    size 17
+    bold True
+    color "#b97fb6"
+    hover_color "#965b9d"
+    insensitive_color "#baaabb"
+    outlines [(1, "#ffffff", 0, 0)]
+
+style retro_title_english is default:
+    font "SourceHanSansLite.ttf"
+    size 10
+    bold True
+    color "#b97fb6"
+    hover_color "#965b9d"
+    insensitive_color "#baaabb"
+
+style retro_title_name is default:
+    font "SourceHanSansLite.ttf"
+    size 44
+    bold True
+    color "#596b64"
+    outlines [(1, "#fffbed", 0, 0)]
+    kerning 3.0
 
 
 style main_menu_frame is empty
@@ -412,6 +463,9 @@ style main_menu_version:
 ## transclude 명령어를 통해 다른 스크린을 이 스크린 내부에 불러옵니다.
 
 screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
+
+    if os.environ.get("RECEIPT_UI_PREVIEW") == "1":
+        use receipt_visual_check
 
     style_prefix "game_menu"
 
@@ -471,12 +525,17 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
     use navigation
 
-    textbutton _("돌아가기"):
-        style "return_button"
+    fixed:
+        xpos 30
+        ypos 529
+        xsize 146
+        ysize 34
+        use receipt_button("return", "돌아가기", Return())
 
-        action Return()
-
-    label title
+    if title in receipt_headings:
+        add ("gui/receipt/heading_" + receipt_headings[title] + ".png") xpos 210 ypos 36
+    else:
+        label title
 
     if main_menu:
         key "game_menu" action ShowMenu("main_menu")
@@ -738,15 +797,15 @@ screen preferences():
                     vbox:
                         style_prefix "radio"
                         label _("화면 모드")
-                        textbutton _("창 화면") action Preference("display", "window")
-                        textbutton _("전체 화면") action Preference("display", "fullscreen")
+                        use receipt_button("window", "창 화면", Preference("display", "window"))
+                        use receipt_button("fullscreen", "전체 화면", Preference("display", "fullscreen"))
 
                 vbox:
                     style_prefix "check"
                     label _("넘기기")
-                    textbutton _("읽지 않은 지문") action Preference("skip", "toggle")
-                    textbutton _("선택지 이후") action Preference("after choices", "toggle")
-                    textbutton _("화면 전환 효과") action InvertSelected(Preference("transitions", "toggle"))
+                    use receipt_button("unread", "읽지 않은 지문 넘기기", Preference("skip", "toggle"))
+                    use receipt_button("after", "선택지 이후 넘기기", Preference("after choices", "toggle"))
+                    use receipt_button("transitions", "화면 전환 효과 생략", InvertSelected(Preference("transitions", "toggle")))
 
                 ## "radio_pref" 나 "check_pref" 를 추가하여 그 외에도 환경설정
                 ## 항목을 추가할 수 있습니다.
@@ -798,9 +857,7 @@ screen preferences():
                     if config.has_music or config.has_sound or config.has_voice:
                         null height gui.pref_spacing
 
-                        textbutton _("모두 음소거"):
-                            action Preference("all mute", "toggle")
-                            style "mute_all_button"
+                        use receipt_button("mute", "모두 음소거", Preference("all mute", "toggle"))
 
 
 style pref_label is gui_label
@@ -1161,8 +1218,8 @@ screen confirm(message, yes_action, no_action):
                 xalign 0.5
                 spacing 63
 
-                textbutton _("네") action yes_action
-                textbutton _("아니오") action no_action
+                use receipt_button("yes", "예", yes_action)
+                use receipt_button("no", "아니오", no_action)
 
     ## 우클릭과 esc는 '아니오'를 입력하는 것과 같습니다.
     key "game_menu" action no_action

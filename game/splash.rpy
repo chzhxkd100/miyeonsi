@@ -6,6 +6,8 @@ label splashscreen:
 
     pause 1.0
 
+    play music "<from 0 to 6>audio/tracking_signal.mp3" fadein 1.0 noloop
+
     show company_logo:
         xalign 0.5
         yalign 0.5
@@ -15,6 +17,7 @@ label splashscreen:
 
     pause 4.0
 
+    stop music fadeout 2.0
     hide company_logo
     with Dissolve(2.0)
 
