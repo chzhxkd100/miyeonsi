@@ -8,9 +8,6 @@ image room_window_background = "images/room_window.png"
 define audio.bird = "audio/bird_sound_full.mp3"
 define audio.ringtone = "audio/acapella_beatbox.mp3"
 
-define smurf = Character("스머프", color="#2a8cce")
-define mc = Character("나", color="#ffffff")
-
 # 여기에서부터 게임이 시작합니다.
 label start:
 
