@@ -1,10 +1,5 @@
 ﻿# 이 파일에 게임 스크립트를 입력합니다.
 
-# 캐릭터 그림이 준비되면 아래 이미지 경로를 바꿉니다.
-image dummy_character = "images/characters/dummy.png"
-image dummy_background = Solid("#dddcd0")
-image room_window_background = "images/room_window.png"
-
 define audio.bird = "audio/bird_sound_full.mp3"
 define audio.ringtone = "audio/acapella_beatbox.mp3"
 
@@ -21,7 +16,7 @@ label start:
     with Dissolve(3.0)
 
     #밝은 햇살이 방 창문으로 들어온다 겨울 눈오고있따'
-    scene room_window_background
+    scene bg room_window_background
     
     
 
@@ -114,11 +109,15 @@ label connect_event:
 
     "난 오늘이 무슨 날인지 알고있었다."
 
-    "12월 24일. 빌어먹을 크리스마스 이브날이다. 하지만 내 입으로 꺼내긴 싫었다."
+    "12월 24일. 빌어먹을 크리스마스 이브날이다."
+    
+    "더욱이 정부가 저출산 정책이랍시고 올해부터 크리스마스 이브까지 공휴일으로 지정해버렸다."
+
+    "하지만 내 입으로 꺼내긴 싫었다."
 
     mc "목요일"
     
-    smurf "오늘 크리스마스 이브잖아, 몰랐던거냐? 밖에도 좀 나가고 하라고. 나무 장식같은것도 좀 해놨을텐데."
+    smurf "오늘 크리스마스 이브잖아, 공휴일으로 바뀐걸 몰랐던거냐? 밖에도 좀 나가고 하라고. 나무 장식같은것도 좀 해놨을텐데."
     
     mc "어차피 나는 매일 공휴일이나 마찬가지야"
 
@@ -154,27 +153,28 @@ label connect_event:
 
     mc "어 근데.."
 
-    #전화 끊기는 소리, 장면
+    #TODO 전화 끊기는 소리, 장면
 
 
     "대답도 다 끝내기 전에 전화가 끊겼다."
 
     mc "지금 몇시지"
 
-    # 휴대폰 시계 시간 확인 사진
+    #TODO 휴대폰 시계 시간 확인 사진
 
     mc "아니 1시간도 안남았잖아"
 
-    #샤워 장면
+    #TODO 샤워 장면
 
-    #옷입는 장면
+    #TODO 옷입는 장면
 
     "나는 서둘러서 준비를 마치고 만나기로한 약속장소로 향했다."
 
-    #이동 연출 
+    #TODO 이동 연출 
 
     "알바를 하다가 그만둔 가게는 쳐다도 안본다는데"
 
     "내가 여기 다시 오게 될 줄이야"
 
-    "가게 문을 열고 들어서니, {smurf} "
+    #가게 입장 챕터1 돌입
+    jump chapter1
