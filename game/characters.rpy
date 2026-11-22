@@ -31,3 +31,11 @@ default irune_color = "#ff00ff" # 이른 캐릭터 색상
 default irune_name = "이른" # 이른 캐릭터 이름
 default irune_cilluete = Character(mystery_name, color=irune_color, image="irune_cilluete") # 이른 실루엣 캐릭터
 default irune = Character(irune_name, color=irune_color, image="irune")
+
+
+# 여캐 2 (미정)
+# 교대시간에 와서 붕어빵 사들고 오는 캐릭터
+
+
+# 여캐3
+# 영자같은 느낌으로 자꾸 치근덕대는데 공포느낌 집착 생긴것도 이상하고 거부감 느껴지는외모 (완전못생긴건아니고)
