@@ -29,7 +29,7 @@ default smurf = Character("스머프", color="#00ffff", image="smurf") # 스머�
 
 default irune_color = "#ff00ff" # 이른 캐릭터 색상
 default irune_name = "이른" # 이른 캐릭터 이름
-default irune_cilluete = Character(mystery_name, color=irune_color, image="irune_cilluete") # 이른 실루엣 캐릭터
+default irune_cilluete = Character(mystery_name, color=irune_color, image="irune_normal") # 이른 실루엣 캐릭터
 default irune = Character(irune_name, color=irune_color, image="irune")
 
 

@@ -2,3 +2,5 @@
 image dummy_character = "images/characters/dummy.png"
 image dummy_background = Solid("#dddcd0")
 image bg room_window_background = "images/room_window.png"
+image bg store_counter = "images/store_counter.png"
+image bg store_staffroom = "images/store_staffroom.png"

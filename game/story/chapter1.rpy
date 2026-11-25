@@ -1,24 +1,31 @@
 label chapter1:
 
     #TODO 가게 카운터 배경
-    scene bg shop_counter with fade
+    scene bg store_counter with fade
+
     mc "드디어 가게에 도착했다"
+
+    "알바를 하다가 그만둔 가게는 쳐다도 안본다는데"
+
+    "내가 여기 다시 오게 될 줄이야"
 
     "평소라면 손님으로 북적대는 점심 시간이지만, 확실히 연휴라 그런지 한가했다."
 
-    #TODO 이른 실루엣
-    show irune_cilluete at left with fade
+    show irune normal
+
     mc "가게에 들어서서 카운터 쪽을 바라보았지만 [smurf.name] 는 보이지 않고, 다른 직원이 서 있었다."
 
     mc "안녕하세요, 혹시 [smurf.name] 씨 계신가요?"
-
-    show irune
 
     irune "아.. "
 
     irune "잠시만요.. 불러드릴게요"
 
+    hide irune with dissolve
+
     "난 카운터 앞에서서 잠시 기다렸다. 그리고 주방 안쪽에서부터 [smurf.name]의 목소리가 들려왔다."
+
+    show smurf normal
 
     smurf "마 왔나"
     
@@ -26,7 +33,11 @@ label chapter1:
 
     mc "뭐 그렇긴하지"
 
+    scene bg store_staffroom with fade
+
     "난 그렇게 말하며 카운터를 지나 직원용 공간으로 갔다"
+
+    show smurf smile
 
     smurf "역시 너밖에 없어, 이런 날에 나와서 도와줄 사람은!"
 
@@ -36,6 +47,10 @@ label chapter1:
 
     "우리 대화를 옆에서 듣고있던 직원이 눈치챈듯하며 말했다"
 
+
+
+    show irune smile
+
     irune "아하"
 
     smurf "아까 말했던 나 대타로 오신분이야"
@@ -44,12 +59,14 @@ label chapter1:
     
     mc "안녕하세요"
 
+    show irune smile
+
     irune "아하, 안녕하세요"
 
     "말수도 적고 감탄사 정도 밖에 들어보지 못했지만, 왠지 착해보이고 친해지고싶은 생각이 들었다."
 
     mc "혹시.. 이름이 뭐에요?"
-    
+
     irune "이른이에요 명찰도 있어요"
 
     "그녀는 자기의 명찰을 자랑스러운 듯 가르키며 말했다"
@@ -57,8 +74,6 @@ label chapter1:
     "하지만 난 여러 이유에 의해 그곳을 오래 쳐다볼 순 없었다"
 
     mc "잘부탁합니다, 이른씨, 하핫"
-
-    show irune_smile
 
     "나는 어색한 웃음과함께 자기소개시간을 마무리했다"
 
